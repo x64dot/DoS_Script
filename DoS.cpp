@@ -19,11 +19,29 @@ class DoSAttack{
             }
             return 0;
         }
+
+        int validate_port(int port){
+            if (port > 65535){
+                return -1;
+            }
+            else if (port < 0){
+                return -1;
+            }
+
+            return 0;
+        }
+
     public:
         int send_attackTCP(char *ip_address, int port){
             if (validate_ip(ip_address) != 0){
                 cout << "[!] Invalid IP address\n";
                 
+                return -1;
+            }  
+
+            if (validate_port(port) != 0){
+                cout << "[!] Invalid port!\n";
+
                 return -1;
             }
 
